@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Life in weeks</title>
+    <style>
+      body {
+      text-align: center;
+      }
+      input, button {
+      margin: 10px;
+      }
+      .week-cell {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin: 2px;
+      border: solid 1px #2ecc71;
+      }
+      .colored-cell {
+      background: #40d47e;
+      }
+      #calendar-wrapper {
+      margin: 30px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+        <div id="elm"></div>
+    </div>
+    <noscript>Enable Javascript to use this app</noscript>
+    <script src="index.js"></script>
+    <script>
+        var now = new Date();
+        var savedBirthDate = localStorage.getItem('birthDate');
+        var app = Elm.Main.init({
+            node: document.getElementById('elm'),
+            flags: {
+                currYear: now.getFullYear(),
+                currMonth: now.getMonth() + 1,
+                currDay: now.getDate(),
+                birthDate: savedBirthDate
+            }
+        });
+
+        app.ports.saveBirthDate.subscribe(function(birthDate) {
+            localStorage.setItem('birthDate', birthDate);
+        });
+    </script>
+  </body>
+</html>
+
